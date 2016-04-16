@@ -12,7 +12,7 @@ class SearchBar extends Component {
   // outside the constructor we manipulate the state using 'this.setState'
   render() {
     return (
-      <div>
+      <div className="search-bar">
         <input
         // this turns it into a controlled component. It will have it's value set by state
         // it's value will only change, when the state changes.
