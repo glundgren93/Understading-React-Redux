@@ -18,7 +18,6 @@ class SearchBar extends Component {
         // it's value will only change, when the state changes.
         value={this.state.query}
         onChange={ (event) => this.setState({ query: event.target.value }) } />
-        Value of the query: {this.state.query}
       </div>
     );
   }
