@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import SearchBar from './components/search_bar';
 
 const API_KEY = 'AIzaSyDVq5Y2AgilV8HNWqORx3cx67taAZhmNUE';
 
-// Create a new component. It should produce some HTML
+// Create a new functional component. It does not have any concept of state
 const App = () => {
   return (
     <div>
