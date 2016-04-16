@@ -7,7 +7,13 @@ const VideoList = (props) => {
 
   // Create new array containing each video inside a VideoListItem
   const videoItems = props.videos.map((video) => {
-    return <VideoListItem key={video.etag} video={video} />
+    return (
+      <VideoListItem
+        // receive property from App and passes it to VideoListItem
+        onVideoSelect={props.onVideoSelect}
+        key={video.etag}
+        video={video} />
+    );
   });
 
   return (

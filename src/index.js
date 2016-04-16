@@ -13,13 +13,20 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { videos: [] };
+    this.state = {
+      videos: [],
+      selectedVideo: null
+    };
 
     YTSearch({ key: API_KEY, term: 'dota 2'}, (videos) => {
 
       // this.setState({ videos: videos })
       // ES6: when key and value have same name we can just call the name instead
-      this.setState({ videos });
+      // this.setState({ videos });
+      this.setState({
+        videos: videos,
+        selectedVideo: videos[0]
+      });
     });
   }
 
@@ -27,8 +34,11 @@ class App extends Component {
     return (
       <div>
         <SearchBar />
-        <VideoDetail video={this.state.videos[0]}/>
-        <VideoList videos={this.state.videos} />
+        <VideoDetail video={this.state.selectedVideo} />
+        <VideoList
+         // takes a video and updates 'this.state.selectedVideo' and pass it as a property to VideoList
+          onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
+          videos={this.state.videos} />
       </div>
     );
   }
