@@ -6,7 +6,7 @@ class SearchBar extends Component {
     super(props);
 
     // in the constructor we set state equals to an object
-    this.state = { query: '' };
+    this.state = { term: '' };
   }
 
   // outside the constructor we manipulate the state using 'this.setState'
@@ -16,11 +16,17 @@ class SearchBar extends Component {
         <input
         // this turns it into a controlled component. It will have it's value set by state
         // it's value will only change, when the state changes.
-        value={this.state.query}
-        onChange={ (event) => this.setState({ query: event.target.value }) } />
+        value={this.state.term}
+        onChange={ event => this.onInputChange(event.target.value) } />
       </div>
     );
   }
+
+  onInputChange(term) {
+    this.setState({term});
+    this.props.onSearchTermChange(term);
+  }
+
 }
 
 export default SearchBar;

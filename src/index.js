@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
+import _ from 'lodash';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
@@ -18,7 +19,11 @@ class App extends Component {
       selectedVideo: null
     };
 
-    YTSearch({ key: API_KEY, term: 'dota 2'}, (videos) => {
+    this.videoSearch('dota 2');
+  }
+
+  videoSearch(term) {
+    YTSearch({ key: API_KEY, term: term}, (videos) => {
 
       // this.setState({ videos: videos })
       // ES6: when key and value have same name we can just call the name instead
@@ -31,13 +36,17 @@ class App extends Component {
   }
 
   render() {
+    // throttling video search function using lodash's debounce
+    // this function can now only be called once every 300ms
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange= {videoSearch}/>
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
          // takes a video and updates 'this.state.selectedVideo' and pass it as a property to VideoList
-          onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
+          onVideoSelect={ selectedVideo => this.setState({selectedVideo}) }
           videos={this.state.videos} />
       </div>
     );
